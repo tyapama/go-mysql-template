@@ -1,0 +1,2 @@
+use react_todo_app;
+insert into tasks values(1 ,'title test','title body',now(),now(),false);

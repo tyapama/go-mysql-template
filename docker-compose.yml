@@ -1,0 +1,59 @@
+version: '3'
+services:
+#  front:
+#    build: ./docker-configs/react
+#    container_name: react-container
+# #   working_dir: /user/src/app
+#    volumes:
+#      - ./golang-standards/react:/usr/src/app
+#    ports:
+#      - "3000:3000"
+#    links:
+#      - back
+#    tty: true
+#    environment:
+#      - NODE_ENV=production
+#    command: sh -c "cd /usr/src/app && yarn start"
+  back:
+    links:
+      - db
+    #ディレクトリ内にあるDockerfileの読み込み
+    build: ./docker-configs/go
+    container_name: go-container
+    depends_on:
+      - db
+    volumes:
+      - ./app-standards/go:/go
+    expose:
+      - "8080"
+    ports:
+      - "8080:8080"
+    tty: true
+    environment:
+      - "GOPATH=/go"
+    #mysqlの起動を待ってからGoを実行
+    command: ["sh", "./init.sh"]
+  db:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    #コンテナに名前をつける
+    container_name: db-container
+    build: ./docker-configs/mysql
+    restart: always
+    #mysqlのホスト名をきめる
+    hostname: mysql
+    #mysql設定
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+      MYSQL_DATABASE: react_todo_app
+      TZ: Asia/Tokyo
+    volumes:
+      # my.confの置き場所
+      - ./docker-configs/mysql/my.cnf:/etc/mysql/my.cnf
+      # データ永続化
+      - ./app-standards/mysql/persistent-data:/var/lib/mysql
+      # 初期起動時のSQL
+      - ./app-standards/mysql/init-sql:/docker-entrypoint-initdb.d

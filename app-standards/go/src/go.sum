@@ -1,0 +1,4 @@
+github.com/go-sql-driver/mysql v1.5.0 h1:ozyZYNQW3x3HtqT1jira07DN2PArx2v7/mN66gGcHOs=
+github.com/go-sql-driver/mysql v1.5.0/go.mod h1:DCzpHaOWr8IXmIStZouvnhqoel9Qv2LBy8hT2VhHyBg=
+github.com/hackebrot/turtle v0.1.0 h1:cmS72nZuooIARtgix6IRPvmw8r4u8olEZW02Q3DB8YQ=
+github.com/hackebrot/turtle v0.1.0/go.mod h1:vDjX4rgnTSlvROhwGbE2GiB43F/l/8V5TXoRJL2cYTs=
